@@ -1,6 +1,5 @@
 import { Temporal } from '@js-temporal/polyfill'
-import * as cheerio from 'cheerio';
-
+import * as cheerio from 'cheerio'
 
 export function parseCinemaAero(html: string | null, date: Temporal.PlainDate) {
 	if (!html) return []

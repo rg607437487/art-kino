@@ -1,22 +1,18 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "art-kino",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
+	"compatibility_flags": ["nodejs_compat"],
 	"compatibility_date": "2026-02-25",
 	"kv_namespaces": [
 		{
 			"binding": "ART_KINO_CACHE",
 			"id": "cfce5db9b5ed4c43a1c2536a8fa7cee8",
-			"remote": true
-		}
+			"remote": true,
+		},
 	],
 	"assets": {
 		"not_found_handling": "single-page-application",
-		"run_worker_first": [
-			"/api/*",
-		]
+		"run_worker_first": ["/api/*"],
 	},
-	"main": "./packages/backend/src/index.ts"
+	"main": "./packages/backend/src/index.ts",
 }

@@ -13,9 +13,7 @@ export async function getCinemas() {
 		},
 	]
 
-	return Promise.all(cinemas.map(async c => 
-		getCinema(date, c)
-	))
+	return Promise.all(cinemas.map(async c => getCinema(date, c)))
 }
 
 async function getCinema(date: Temporal.PlainDate, cinemaConf: CinemaConf) {

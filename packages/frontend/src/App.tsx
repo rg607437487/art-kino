@@ -1,12 +1,12 @@
-import { useState, useEffect, Fragment } from "react";
-import "./App.css";
+import { useState, useEffect, Fragment } from 'react'
+import './App.css'
 
 // TODO fetch in router(tanstack)
 // TODO validate with zod, share schema with backend
 // TODO cache data on backend somewhere (D1?)
 
 export function App() {
-	const [ cinemas, setCinemas ] = useState<Cinema[]>([]);
+	const [cinemas, setCinemas] = useState<Cinema[]>([])
 
 	console.log('---> cinemas', cinemas)
 
@@ -35,11 +35,13 @@ export function App() {
 	}, [])
 
 	return (
-		<>      
+		<>
 			<h1>Art Kino (Exp)</h1>
-			{cinemas.map(c => <Cinema key={c.id} {...c} />)}
+			{cinemas.map(c => (
+				<Cinema key={c.id} {...c} />
+			))}
 		</>
-	);
+	)
 }
 
 function Cinema(props: Cinema) {
