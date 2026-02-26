@@ -21,7 +21,7 @@ export async function getCinemas() {
 async function getCinema(date: Temporal.PlainDate, cinemaConf: CinemaConf) {
 	const { id, name, getUrl, parse } = cinemaConf
 
-	console.log(`\n -> 2 Fetching program for ${name}...\n`)
+	console.log(`\n -> Fetching program for ${name}...\n`)
 
 	const url = getUrl(date)
 	const text = await fetch(url).then(r => r.text())

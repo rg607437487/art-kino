@@ -1,32 +1,35 @@
 import { getCinemas } from './getCinemas.ts'
+import { createCache } from './util/kvCache.ts'
 
-const DAY_MS = 24 * 60 * 60 * 1000
-const cache = new Map<string, { timestamp: number; data: any }>()
+const API_CINEMA = '/api/cinema'
+const API_NAME = '/api/name'
 
 export default {
-  async fetch(request) {
-    const url = new URL(request.url);
+	async fetch(request, env) {
+		const url = new URL(request.url);
+		const cache = createCache(env.ART_KINO_CACHE)
+	
+		if (url.pathname.startsWith(API_CINEMA)) {
+			const cached = await cache.get(API_CINEMA)
 
-    if (url.pathname.startsWith("/api/name")) {
-		return Response.json({ name: "Cloudflare4"});
-    }
-
-    if (url.pathname.startsWith("/api/cinema")) {
-		if (cache.has('/api/cinema')) {
-			const cached = cache.get('/api/cinema')
-
-			if (cached && Date.now() - cached.timestamp < DAY_MS) {
-
-				Response.json(cached.data)
+			if (cached) {
+				return Response.json(cached)
 			}
+
+			const data = await getCinemas()
+			cache.set(API_CINEMA, data)
+
+			return Response.json(data)
 		}
 
-		const data = await getCinemas()
-		cache.set('/api/cinemas', { timestamp: Date.now(), data })
+		if (url.pathname.startsWith(API_NAME)) {
+			return Response.json({ name: "Cloudflare5"});
+		}
 
-		return Response.json(data)
-    }
+		return new Response(null, { status: 404 });
+	},
+} satisfies ExportedHandler<Env>;
 
-    return new Response(null, { status: 404 });
-  },
-} satisfies ExportedHandler;
+interface Env {
+  ART_KINO_CACHE: KVNamespace;
+}
