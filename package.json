@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
+		"deploy": "wrangler deploy --env production",
 		"lint": "eslint .",
 		"preview": "vite preview",
 		"fmt": "oxfmt",
@@ -13,6 +14,9 @@
 	},
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.5.1",
+		"@tanstack/react-router": "^1.163.2",
+		"@tanstack/react-router-devtools": "^1.163.2",
+		"bootstrap": "^5.3.8",
 		"cheerio": "^1.2.0",
 		"jsdom": "^28.1.0",
 		"react": "^19.2.0",
@@ -23,6 +27,7 @@
 		"@cloudflare/vite-plugin": "^1.25.5",
 		"@cloudflare/workers-types": "^4.20260304.0",
 		"@eslint/js": "^9.39.1",
+		"@tanstack/router-plugin": "^1.163.2",
 		"@types/jsdom": "^27.0.0",
 		"@types/node": "^24.10.1",
 		"@types/react": "^19.2.7",

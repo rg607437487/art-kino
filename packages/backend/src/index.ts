@@ -17,7 +17,7 @@ export default {
 			}
 
 			const data = await getCinemas()
-			cache.set(API_CINEMA, data)
+			await cache.set(API_CINEMA, data)
 
 			return Response.json(data)
 		}

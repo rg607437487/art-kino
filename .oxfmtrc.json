@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/oxfmt/configuration_schema.json",
-	"ignorePatterns": ["node_modules/**", "dist/**", "*.min.js", "zombie/**"],
+	"ignorePatterns": ["node_modules/**", "dist/**", "zombie/**", "*.min.js", "*routeTree.gen.ts"],
 	"useTabs": true,
 	"tabWidth": 4,
 	"semi": false,

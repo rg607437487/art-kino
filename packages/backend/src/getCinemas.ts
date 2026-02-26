@@ -24,7 +24,7 @@ async function getCinema(date: Temporal.PlainDate, cinemaConf: CinemaConf) {
 	const url = getUrl(date)
 	const text = await fetch(url).then(r => r.text())
 
-	return text ? { id, program: parse(text, date) } : null
+	return text ? { id, name, program: parse(text, date) } : null
 }
 
 type CinemaConf = {
