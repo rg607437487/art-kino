@@ -13,6 +13,7 @@ export function createCache(kv: KVNamespace) {
 			// MAYBE try/get anybody? or maybe at the top in the express error handler?
 
 			const cachedStr = await kv.get(key)
+
 			if (!cachedStr) return null
 
 			const cached = cacheRecordSch.parse(JSON.parse(cachedStr))
