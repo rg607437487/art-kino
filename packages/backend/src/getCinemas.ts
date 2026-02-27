@@ -1,43 +1,51 @@
 import { Temporal } from '@js-temporal/polyfill'
 import { parseCinemaAero } from './parse/parseCinemaAero.ts'
+import { parseCinemaAtlas } from './parse/parseCinemaAtlas.ts'
 
-export async function getCinemas() {
-	const date = Temporal.Now.plainDateISO()
+export async function getCinemas(date?: Temporal.PlainDate) {
+	const today = date ?? Temporal.Now.plainDateISO()
 
-	const cinemas = [
-		{
-			id: 'aero',
-			name: 'Kino Aero',
-			getUrl: (_d: Temporal.PlainDate) => 'https://www.kinoaero.cz/en',
-			parse: (s: string, d: Temporal.PlainDate) => parseCinemaAero(s, d),
-		},
+	// aero
+
+	const aero = await (async () => {
+		try {
+			const html = await fetchHtml(`https://www.kinoaero.cz/en`)
+
+			return html ? parseCinemaAero(html, today) : null
+		} catch (e) {
+			console.error('Error fetching/parsing Aero:', e)
+		}
+	})()
+
+	// atlas
+
+	const atlas = await (async () => {
+		try {
+			const html = await fetchHtml(
+				`https://kinoatlaspraha.cz/ajax_get_program.php?date=${today.toString()}&lang=en`,
+				{
+					headers: {
+						cookie: 'lang=en',
+						'User-Agent':
+							'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36',
+					},
+				},
+			)
+
+			return html ? parseCinemaAtlas(html, today) : null
+		} catch (e) {
+			console.error('Error fetching/parsing Atlas future:', e)
+		}
+	})()
+
+	const data = [
+		{ id: 'aero', name: 'Aero', program: aero },
+		{ id: 'atlas', name: 'Atlas', program: atlas },
 	]
 
-	return Promise.all(cinemas.map(async c => getCinema(date, c)))
+	return data
 }
 
-async function getCinema(date: Temporal.PlainDate, cinemaConf: CinemaConf) {
-	const { id, name, getUrl, parse } = cinemaConf
-
-	console.log(`\n -> Fetching program for ${name}...\n`)
-
-	const url = getUrl(date)
-	const text = await fetch(url).then(r => r.text())
-
-	return text ? { id, name, program: parse(text, date) } : null
-}
-
-type CinemaConf = {
-	id: string
-	name: string
-	getUrl: (date: Temporal.PlainDate) => string
-	parse: (html: string, date: Temporal.PlainDate) => CinemaDayProgram[]
-}
-
-type CinemaDayProgram = {
-	date: string | null
-	movies: {
-		title: string | null
-		time: string | null
-	}[]
+function fetchHtml(url: string, opts?: RequestInit) {
+	return fetch(url, opts).then(r => r.text())
 }

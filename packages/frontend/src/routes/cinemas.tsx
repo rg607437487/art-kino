@@ -31,10 +31,10 @@ function Cinema(props: Cinema) {
 					<div className="container text-center mb-2">
 						{p.movies.map((m, i) => (
 							<div className="row" key={`${m.title}-${m.time}-${i}`}>
-								<div className="col-1 text-start">
+								<div className="col-2 text-start">
 									<b>{m.time}</b>
 								</div>
-								<div className="col-11 text-start">{m.title}</div>
+								<div className="col-10 text-start">{m.title}</div>
 							</div>
 						))}
 					</div>
@@ -74,6 +74,7 @@ const cinemasResponseSch = z.array(
 					z.object({
 						title: z.string().nullable(),
 						time: z.string().nullable(),
+						href: z.string().nullable(),
 					}),
 				),
 			}),

@@ -1,5 +1,6 @@
 import { Temporal } from '@js-temporal/polyfill'
 import * as cheerio from 'cheerio'
+import { parseDateWWWDDMM } from './parseLib.ts'
 
 export function parseCinemaAero(html: string | null, date: Temporal.PlainDate) {
 	if (!html) return []
@@ -11,29 +12,21 @@ export function parseCinemaAero(html: string | null, date: Temporal.PlainDate) {
 	const days = dayNodes.map((_, dn) => {
 		const dateRaw = $(dn).find('.desktop')?.text()
 
-		const dateParsed = (() => {
-			if (dateRaw === 'Today') return date
-			if (dateRaw === 'Tomorrow') return date.add({ days: 1 })
-
-			const [_, d, m] = dateRaw?.split(/[ /]/) ?? []
-			if (d && m) {
-				return Temporal.PlainDate.from({
-					year: date.year,
-					month: Number(m),
-					day: Number(d),
-				})
-			}
-			console.error(`Unknown date format: ${dateRaw}`)
-
-			return null
-		})()
+		const dateParsed = parseDateWWWDDMM(dateRaw, date)
 
 		const movieNodes = $(dn).find('.program__info-row')
 
-		const movies = movieNodes.map((_, rn) => ({
-			title: $(rn).find('.program__movie-name')?.text(),
-			time: $(rn).find('.program__hour')?.text(),
-		}))
+		const movies = movieNodes.map((_, rn) => {
+			const $rn = $(rn)
+			const $name = $rn.find('.program__movie-name')
+			const $time = $rn.find('.program__hour')
+
+			return {
+				title: $name?.text(),
+				href: 'https://www.kinoaero.cz/en?projection=' + $name?.attr('data-projection'),
+				time: $time?.text(),
+			}
+		})
 
 		return {
 			date: dateParsed?.toString() || null,
