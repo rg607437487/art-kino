@@ -1,16 +1,15 @@
+import { Temporal } from '@js-temporal/polyfill'
 import * as z from 'zod'
 
-const VALIDITY_MS = 24 * 60 * 60 * 1000
-
 const cacheRecordSch = z.object({
-	timestamp: z.number(),
+	timestamp: z.string(), // plainDateISO
 	data: z.any(),
 })
 
 export function createCache(kv: KVNamespace) {
 	return {
 		async get(key: string) {
-			// MAYBE try/get anybody? or maybe at the top in the express error handler?
+			// MAYBE try? or maybe just at the top in the express error handler?
 
 			const cachedStr = await kv.get(key)
 
@@ -18,14 +17,19 @@ export function createCache(kv: KVNamespace) {
 
 			const cached = cacheRecordSch.parse(JSON.parse(cachedStr))
 
-			if (Date.now() - cached.timestamp < VALIDITY_MS) {
+			// cache valid only during the same calendar day
+			const today = Temporal.Now.plainDateISO()
+			const isValid = Temporal.PlainDate.from(cached.timestamp).equals(today)
+
+			if (isValid) {
 				return cached.data
 			}
 
 			return null
 		},
 		async set(key: string, data: any) {
-			const dataStr = JSON.stringify({ timestamp: Date.now(), data })
+			const today = Temporal.Now.plainDateISO()
+			const dataStr = JSON.stringify({ timestamp: today, data })
 			await kv.put(key, dataStr)
 		},
 	}
