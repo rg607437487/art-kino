@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useContext } from 'react'
 import * as z from 'zod'
 import { DayMovies } from '../lib/libCinemas.tsx'
+import { MediaContext } from '../lib/MediaContext.tsx'
 
 export const Route = createFileRoute('/cinemas')({
 	component: Cinemas,
@@ -10,11 +12,15 @@ export const Route = createFileRoute('/cinemas')({
 function Cinemas() {
 	const cinemas = Route.useLoaderData()
 
+	const { isMobile } = useContext(MediaContext)
+
+	// TODO use native css grid
+
 	return (
-		<div className="container m-auto">
+		<div className={`${isMobile ? 'container' : 'container-lg'} m-auto`}>
 			<div className="row">
 				{cinemas.map(c => (
-					<div className="col-sm-6" key={c.id}>
+					<div className={`${isMobile ? 'col-sm' : 'col'}`} key={c.id}>
 						<Cinema {...c} />
 					</div>
 				))}
