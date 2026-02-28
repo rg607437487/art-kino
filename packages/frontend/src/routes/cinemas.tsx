@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import * as z from 'zod'
+import { DayMovies } from '../lib/libCinemas.tsx'
 
 export const Route = createFileRoute('/cinemas')({
 	component: Cinemas,
@@ -10,11 +11,15 @@ function Cinemas() {
 	const cinemas = Route.useLoaderData()
 
 	return (
-		<>
-			{cinemas.map(c => (
-				<Cinema key={c.id} {...c} />
-			))}
-		</>
+		<div className="container m-auto">
+			<div className="row">
+				{cinemas.map(c => (
+					<div className="col-sm-6" key={c.id}>
+						<Cinema {...c} />
+					</div>
+				))}
+			</div>
+		</div>
 	)
 }
 
@@ -22,22 +27,12 @@ function Cinema(props: Cinema) {
 	const { name, program } = props
 
 	return (
-		<div className="p-2">
-			<h2>{name}</h2>
+		<div className="">
+			<h2 className="text-center mt-4">{name}</h2>
 
 			{program.map(p => (
-				<div className="ms-3" key={p.date}>
-					<h3>{p.date}</h3>
-					<div className="container text-center mb-2">
-						{p.movies.map((m, i) => (
-							<div className="row" key={`${m.title}-${m.time}-${i}`}>
-								<div className="col-2 text-start">
-									<b>{m.time}</b>
-								</div>
-								<div className="col-10 text-start">{m.title}</div>
-							</div>
-						))}
-					</div>
+				<div className="" key={p.date}>
+					<DayMovies {...p} />
 				</div>
 			))}
 		</div>
@@ -69,12 +64,12 @@ const cinemasResponseSch = z.array(
 		name: z.string(),
 		program: z.array(
 			z.object({
-				date: z.string().nullable(),
+				date: z.string(),
 				movies: z.array(
 					z.object({
-						title: z.string().nullable(),
-						time: z.string().nullable(),
-						href: z.string().nullable(),
+						title: z.string(),
+						time: z.string(),
+						href: z.string(),
 					}),
 				),
 			}),

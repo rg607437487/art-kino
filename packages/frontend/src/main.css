@@ -1,23 +1,78 @@
 @import 'assets/fonts/fira/fira.css';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+@font-face {
+	font-family: 'Fira Condensed';
+	src: url('assets/fonts/fira/otf/FiraSansCondensed-Bold.otf');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Fira Condensed';
+	src: url('assets/fonts/fira/otf/FiraSansCondensed-ExtraBold.otf');
+	font-weight: 800;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Fira Condensed';
+	src: url('assets/fonts/fira/otf/FiraSansCondensed-Light.otf');
+	font-weight: 300;
+	font-style: normal;
+}
+
 body {
 	font-family: 'Fira Sans', sans-serif;
 	font-weight: 300;
 	font-size: 1rem;
+	background-color: whitesmoke;
+}
+
+@media (max-width: 1250px) {
+	/* … */
 }
 
 h1 {
-	font-size: 1.5rem;
-	font-weight: 600;
+	font-family: 'Fira Condensed', sans-serif;
+	font-weight: 800;
+	font-size: 1rem;
+	color: #888;
 }
 
 h2 {
-	font-size: 1.25rem;
-	font-weight: 600;
+	font-family: 'Fira Condensed', sans-serif;
+	font-weight: 800;
+	font-size: 2.1rem;
+	color: #888;
 }
 
 h3 {
-	font-size: 1rem;
-	font-weight: 600;
+	font-family: 'Fira Condensed', sans-serif;
+	font-weight: 800;
+	font-size: 1.4rem;
+	color: #888;
+}
+
+.card {
+	background-color: white;
+	border: none;
+	border-radius: 1rem;
+	/* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+	margin-bottom: 1rem;
+}
+
+.condensed-light {
+	font-family: 'Fira Condensed', sans-serif;
+	font-weight: 300;
+}
+
+.condensed-bold {
+	font-family: 'Fira Condensed', sans-serif;
+	font-weight: 700;
+}
+
+.condensed-extrabold {
+	font-family: 'Fira Condensed', sans-serif;
+	font-weight: 800;
 }

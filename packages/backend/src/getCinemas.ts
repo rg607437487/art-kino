@@ -39,8 +39,8 @@ export async function getCinemas(date?: Temporal.PlainDate) {
 	})()
 
 	const data = [
-		{ id: 'aero', name: 'Aero', program: aero },
-		{ id: 'atlas', name: 'Atlas', program: atlas },
+		{ id: 'aero', name: 'Kino Aero', program: aero },
+		{ id: 'atlas', name: 'Kino Atlas', program: atlas },
 	]
 
 	return data
