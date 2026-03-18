@@ -1,13 +1,10 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import { useContext } from 'react'
+import { MediaContext } from '../lib/MediaContext.tsx'
 
 function RootLayout() {
-	//
-	// move to useContext
-	//
-
-	const isMobileMedia = window.matchMedia('(max-width: 431px)') // 430 iPhone Pro Max 14
-	const isMobile = isMobileMedia.matches
+	const { isMobile } = useContext(MediaContext)
 
 	return (
 		<div className={`${isMobile ? 'p-1' : 'p-4'}`}>
