@@ -10,11 +10,11 @@ function RootLayout() {
 			<nav className="navbar navbar-expand-sm bg-body-secondary">
 				<div className="container-fluid">
 					<a className="navbar-brand" href="/">
-						Art Kino Praha
+						<h3 style={{ color: 'var(--bs-pink)' }}>Art Kino Praha</h3>
 					</a>
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav">
-							<li className="nav-item">
+							<li className="nav-item h3 condensed-bold">
 								<Link
 									to="/cinemas/$cinemaId"
 									params={{ cinemaId: 'aero' }}
@@ -23,7 +23,7 @@ function RootLayout() {
 									Cinemas
 								</Link>
 							</li>
-							<li className="nav-item">
+							<li className="nav-item h3 condensed-bold">
 								<Link
 									to="/dates/$date"
 									params={{ date: Temporal.Now.plainDateISO().toString() }}

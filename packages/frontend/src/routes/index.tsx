@@ -7,8 +7,7 @@ export const Route = createFileRoute('/')({
 function Index() {
 	return (
 		<>
-			<h2 className="p-2">Art Kino</h2>
-			<div className="p-2">
+			<div className="p-4">
 				This is a private experiment with various web technologies, currently: React,
 				TanStack, Zod, Node, Cheerio, Express, Vite, Oxc, Cloudflare, KV
 			</div>

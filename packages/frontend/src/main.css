@@ -32,21 +32,24 @@ body {
 	/* … */
 }
 
-h1 {
+h1,
+.h1 {
 	font-family: 'Fira Condensed', sans-serif;
 	font-weight: 800;
 	font-size: 1rem;
 	color: #888;
 }
 
-h2 {
+h2,
+.h2 {
 	font-family: 'Fira Condensed', sans-serif;
 	font-weight: 800;
 	font-size: 2.1rem;
 	color: #888;
 }
 
-h3 {
+h3,
+.h3 {
 	font-family: 'Fira Condensed', sans-serif;
 	font-weight: 800;
 	font-size: 1.4rem;

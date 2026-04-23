@@ -16,7 +16,11 @@ export function DayMovies(props: DayMoviesProps) {
 					<div className="col text-start condensed-bold" style={{ maxWidth: '65px' }}>
 						<b>{m.time}</b>
 					</div>
-					<div className="col text-start">{m.title}</div>
+					<div className="col text-start">
+						<a href={m.href} target="_blank" rel="noopener noreferrer">
+							{m.title}
+						</a>
+					</div>
 				</div>
 			))}
 		</div>

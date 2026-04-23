@@ -28,7 +28,7 @@ function DateTabs(props: { dates: string[] }) {
 	return (
 		<ul className="nav nav-underline justify-content-center mb-3">
 			{dates.map(d => (
-				<li className="nav-item" key={d}>
+				<li className="nav-item h3" key={d}>
 					<Link className="nav-link" to="/dates/$date" params={{ date: d }}>
 						{(() => {
 							const { month, day } = Temporal.PlainDate.from(d)

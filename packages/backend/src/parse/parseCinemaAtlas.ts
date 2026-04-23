@@ -23,7 +23,7 @@ export function parseCinemaAtlas(html: string | null, today: Temporal.PlainDate)
 		if ($n.hasClass('event')) {
 			const title = $n.find('.title').text()
 			const time = $n.find('.time').text()
-			const href = $n.find('a').attr('href')
+			const href = 'https://www.kinoatlaspraha.cz/' + $n.find('a').attr('href')
 
 			movies.set(currDate, [...(movies.get(currDate) ?? []), { title, time, href }])
 		}
