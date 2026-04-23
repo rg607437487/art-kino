@@ -24,9 +24,9 @@ function CinemaTabs(props: { cinemas: Cinema[] }) {
 	const { cinemas } = props
 
 	return (
-		<ul className="nav nav-underline justify-content-center mb-3">
+		<ul className="nav nav-underline justify-content-center mb-4">
 			{cinemas.map(c => (
-				<li className="nav-item h3" key={c.id}>
+				<li className="nav-item b" key={c.id}>
 					<Link className="nav-link" to="/cinemas/$cinemaId" params={{ cinemaId: c.id }}>
 						{c.name}
 					</Link>

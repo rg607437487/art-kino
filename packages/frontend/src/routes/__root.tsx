@@ -7,7 +7,7 @@ export const Route = createRootRoute({ component: RootLayout })
 function RootLayout() {
 	return (
 		<>
-			<nav className="navbar navbar-expand-sm bg-body-secondary">
+			<nav className="navbar sticky-top navbar-expand bg-body-secondary">
 				<div className="container-fluid">
 					<a className="navbar-brand" href="/">
 						<h3 style={{ color: 'var(--bs-pink)' }}>Art Kino Praha</h3>
