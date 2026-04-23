@@ -7,8 +7,11 @@ export const Route = createFileRoute('/')({
 function Index() {
 	return (
 		<>
-			<h2 className="p-2">Welcome stranger!</h2>
-			<div className="p-2">Nothing to see here but thank you for your visit!</div>
+			<h2 className="p-2">Art Kino</h2>
+			<div className="p-2">
+				This is a private experiment with various web technologies, currently: React,
+				TanStack, Zod, Node, Cheerio, Express, Vite, Oxc, Cloudflare, KV
+			</div>
 		</>
 	)
 }

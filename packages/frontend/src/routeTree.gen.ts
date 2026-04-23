@@ -9,89 +9,58 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DatesRouteImport } from './routes/dates'
-import { Route as CinemasRouteImport } from './routes/cinemas'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DatesDateRouteImport } from './routes/dates.$date'
+import { Route as CinemasCinemaIdRouteImport } from './routes/cinemas.$cinemaId'
 
-const DatesRoute = DatesRouteImport.update({
-  id: '/dates',
-  path: '/dates',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CinemasRoute = CinemasRouteImport.update({
-  id: '/cinemas',
-  path: '/cinemas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DatesDateRoute = DatesDateRouteImport.update({
+  id: '/dates/$date',
+  path: '/dates/$date',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CinemasCinemaIdRoute = CinemasCinemaIdRouteImport.update({
+  id: '/cinemas/$cinemaId',
+  path: '/cinemas/$cinemaId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/cinemas': typeof CinemasRoute
-  '/dates': typeof DatesRoute
+  '/cinemas/$cinemaId': typeof CinemasCinemaIdRoute
+  '/dates/$date': typeof DatesDateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/cinemas': typeof CinemasRoute
-  '/dates': typeof DatesRoute
+  '/cinemas/$cinemaId': typeof CinemasCinemaIdRoute
+  '/dates/$date': typeof DatesDateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/cinemas': typeof CinemasRoute
-  '/dates': typeof DatesRoute
+  '/cinemas/$cinemaId': typeof CinemasCinemaIdRoute
+  '/dates/$date': typeof DatesDateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/cinemas' | '/dates'
+  fullPaths: '/' | '/cinemas/$cinemaId' | '/dates/$date'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/cinemas' | '/dates'
-  id: '__root__' | '/' | '/about' | '/cinemas' | '/dates'
+  to: '/' | '/cinemas/$cinemaId' | '/dates/$date'
+  id: '__root__' | '/' | '/cinemas/$cinemaId' | '/dates/$date'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  CinemasRoute: typeof CinemasRoute
-  DatesRoute: typeof DatesRoute
+  CinemasCinemaIdRoute: typeof CinemasCinemaIdRoute
+  DatesDateRoute: typeof DatesDateRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dates': {
-      id: '/dates'
-      path: '/dates'
-      fullPath: '/dates'
-      preLoaderRoute: typeof DatesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cinemas': {
-      id: '/cinemas'
-      path: '/cinemas'
-      fullPath: '/cinemas'
-      preLoaderRoute: typeof CinemasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -99,14 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dates/$date': {
+      id: '/dates/$date'
+      path: '/dates/$date'
+      fullPath: '/dates/$date'
+      preLoaderRoute: typeof DatesDateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cinemas/$cinemaId': {
+      id: '/cinemas/$cinemaId'
+      path: '/cinemas/$cinemaId'
+      fullPath: '/cinemas/$cinemaId'
+      preLoaderRoute: typeof CinemasCinemaIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  CinemasRoute: CinemasRoute,
-  DatesRoute: DatesRoute,
+  CinemasCinemaIdRoute: CinemasCinemaIdRoute,
+  DatesDateRoute: DatesDateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
